@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="100%" height="100%" fill="none" style="background-color: transparent;">
+  <defs>
+    <style>
+      svg { background: transparent; }
+      * { fill-opacity: 1; }
+    </style>
+  </defs>
+  <!-- Main wing shape -->
+  <path d="M300 60 
+           C220 60 160 80 120 110 C80 140 40 190 30 230
+           L80 230 C90 200 110 170 130 155 
+           L130 180 L180 180 L180 155
+           L180 190 L230 190 L230 155
+           L230 200 L280 200 L290 155
+           
+           C310 155 310 155 310 155
+           
+           L320 200 L370 200 L370 155
+           L370 190 L420 190 L420 155
+           L420 180 L470 180 L470 155
+           C490 170 510 200 520 230
+           L570 230 C560 190 520 140 480 110 C440 80 380 60 300 60Z" 
+        fill="#0A3279"/>
+  
+  <!-- Yellow stripes -->
+  <path d="M120 130 L130 155 L180 155 L170 130 Z" fill="#F2BB05"/>
+  <path d="M170 150 L180 175 L230 175 L220 150 Z" fill="#F2BB05"/>
+  <path d="M220 170 L230 195 L280 195 L270 170 Z" fill="#F2BB05"/>
+  
+  <path d="M330 170 L320 195 L370 195 L380 170 Z" fill="#F2BB05"/>
+  <path d="M380 150 L370 175 L420 175 L430 150 Z" fill="#F2BB05"/>
+  <path d="M430 130 L420 155 L470 155 L480 130 Z" fill="#F2BB05"/>
+  
+  <!-- Center circle -->
+  <circle cx="300" cy="155" r="75" fill="#0A3279" stroke="#F2BB05" stroke-width="4"/>
+  
+  <!-- Jet plane silhouette -->
+  <path d="M300 100 
+           L290 130 L275 140 
+           L265 150 L255 170 
+           L270 180 L285 190 
+           L300 175
+           L315 190 L330 180 L345 170
+           L335 150 L325 140 L310 130 Z" 
+        fill="#F2BB05"/>
+  
+  <!-- Text UA -->
+  <text x="300" y="125" 
+        font-family="Arial, sans-serif" font-size="32" 
+        font-weight="bold" text-anchor="middle" 
+        fill="#F2BB05">UA</text>
+  
+  <!-- Curved AIRBLOCK text -->
+  <path id="textArc" d="M240,210 A60,60 0 0,1 360,210" fill="none"/>
+  <text fill="#F2BB05" font-family="Arial, sans-serif" font-size="24" font-weight="bold">
+    <textPath href="#textArc" startOffset="50%" text-anchor="middle">AIRBLOCK</textPath>
+  </text>
+</svg> 
