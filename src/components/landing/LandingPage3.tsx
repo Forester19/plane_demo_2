@@ -7,12 +7,12 @@ import { useLang } from './LangContext';
 import { LanguageSwitch } from './LanguageSwitch';
 
 // Import images directly
-import picture1 from '../../assets/Picture 1.png';
-import picture2 from '../../assets/Picture 2.jpg';
-import picture3 from '../../assets/Picture 3.jpg';
-import picture4 from '../../assets/Picture 4.png';
-import picture5 from '../../assets/Picture 5.jpg';
-import picture6 from '../../assets/Picture 6.png';
+import picture1 from '../../assets/Picture_1.png';
+import picture2 from '../../assets/Picture_2.jpg';
+import picture3 from '../../assets/Picture_3.jpg';
+import picture4 from '../../assets/Picture_4.png';
+import picture5 from '../../assets/Picture_5.jpg';
+import picture6 from '../../assets/Picture_6.png';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
