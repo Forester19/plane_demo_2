@@ -1,13 +1,173 @@
-import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue } from '@chakra-ui/react';
-import { FiFileText, FiMessageCircle, FiShield, FiTarget, FiWifi, FiEye } from 'react-icons/fi';
+import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton } from '@chakra-ui/react';
+import {FiFileText, FiMessageCircle, FiShield, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronLeft, FiChevronRight} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import airblockLogo from '../../assets/airblock-logo.svg';
+import { useState, useEffect } from 'react';
+import { useLang } from './LangContext';
+import { LanguageSwitch } from './LanguageSwitch';
+
+// Import images directly
+import picture1 from '../../assets/Picture 1.png';
+import picture2 from '../../assets/Picture 2.jpg';
+import picture3 from '../../assets/Picture 3.jpg';
+import picture4 from '../../assets/Picture 4.png';
+import picture5 from '../../assets/Picture 5.jpg';
+import picture6 from '../../assets/Picture 6.png';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
 
+// Define animation variants
+const fadeInFromLeft = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
+const fadeInFromRight = {
+  hidden: { opacity: 0, x: 20 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.7, delay: 0.3 }
+  }
+};
+
+// Slideshow component
+const ImageSlideshow = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Images from assets folder
+  const slides = [
+    {
+      url: picture1,
+      alt: "AIRBLOCK Tactical Drone Image 1"
+    },
+    {
+      url: picture2,
+      alt: "AIRBLOCK Tactical Drone Image 2"
+    },
+    {
+      url: picture3,
+      alt: "AIRBLOCK Tactical Drone Image 3"
+    },
+    {
+      url: picture4,
+      alt: "AIRBLOCK Tactical Drone Image 4"
+    },
+    {
+      url: picture5,
+      alt: "AIRBLOCK Tactical Drone Image 5"
+    },
+    {
+      url: picture6,
+      alt: "AIRBLOCK Tactical Drone Image 6"
+    }
+  ];
+  
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 5000);
+    
+    return () => clearInterval(timer);
+  }, [slides.length]);
+  
+  const nextSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+  };
+  
+  const prevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
+  };
+  
+  return (
+    <Box position="relative" height="100%" width="100%">
+      {slides.map((slide, index) => (
+        <Box
+          key={index}
+          position="absolute"
+          top="0"
+          left="0"
+          width="100%"
+          height="100%"
+          opacity={index === currentSlide ? 1 : 0}
+          transition="opacity 0.5s ease-in-out"
+          zIndex={index === currentSlide ? 1 : 0}
+        >
+          <Image
+            src={slide.url}
+            alt={slide.alt}
+            width="100%"
+            height="100%"
+            objectFit="cover"
+          />
+        </Box>
+      ))}
+      
+      {/* Navigation arrows */}
+      <IconButton
+        aria-label="Previous slide"
+        icon={<FiChevronLeft size="24px" />}
+        position="absolute"
+        left="10px"
+        top="50%"
+        transform="translateY(-50%)"
+        zIndex="2"
+        bg="rgba(0,0,0,0.5)"
+        color="white"
+        borderRadius="full"
+        onClick={prevSlide}
+        _hover={{ bg: "rgba(0,0,0,0.7)" }}
+      />
+      
+      <IconButton
+        aria-label="Next slide"
+        icon={<FiChevronRight size="24px" />}
+        position="absolute"
+        right="10px"
+        top="50%"
+        transform="translateY(-50%)"
+        zIndex="2"
+        bg="rgba(0,0,0,0.5)"
+        color="white"
+        borderRadius="full"
+        onClick={nextSlide}
+        _hover={{ bg: "rgba(0,0,0,0.7)" }}
+      />
+      
+      {/* Slide indicators */}
+      <HStack
+        spacing={2}
+        position="absolute"
+        bottom="15px"
+        left="50%"
+        transform="translateX(-50%)"
+        zIndex="2"
+      >
+        {slides.map((_, index) => (
+          <Box
+            key={index}
+            w="8px"
+            h="8px"
+            borderRadius="full"
+            bg={index === currentSlide ? "yellow.400" : "whiteAlpha.600"}
+            cursor="pointer"
+            onClick={() => setCurrentSlide(index)}
+          />
+        ))}
+      </HStack>
+    </Box>
+  );
+};
+
 export const LandingPage3 = () => {
   const logoSize = useBreakpointValue({ base: '150px', md: '200px' });
+  const { t } = useLang();
   
   return (
     <Box 
@@ -18,6 +178,9 @@ export const LandingPage3 = () => {
       overflow="auto"
       h="100%"
     >
+      {/* Language Switch */}
+      <LanguageSwitch />
+      
       {/* Radial gradient overlay */}
       <Box
         position="absolute"
@@ -59,9 +222,9 @@ export const LandingPage3 = () => {
             borderColor="rgba(74, 144, 226, 0.3)"
             borderRadius="md"
             p={6}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: "0.5" }}
+            variants={fadeInFromLeft}
+            initial="hidden"
+            animate="visible"
             mb={{ base: 6, lg: 0 }}
             position={{ base: "relative", lg: "sticky" }}
             top={{ lg: "20px" }}
@@ -78,15 +241,15 @@ export const LandingPage3 = () => {
               />
               
               <VStack align="start" spacing={1} w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm">MODEL:</Text>
-                <Text fontFamily="mono" fontSize="xl" fontWeight="bold">UA-AIRBLOCK-MK3</Text>
-                <Badge colorScheme="blue" mt={1}>MILITARY GRADE</Badge>
+                <Text color="yellow.400" fontWeight="bold" fontSize="sm">{t('sidebar.models')}</Text>
+                <Text fontFamily="mono" fontSize="xl" fontWeight="bold">"КОРТИК" <br/> "АКІНАК Uj-52" "АКІНАК Uj-52-FT"</Text>
+                <Badge colorScheme="blue" mt={1}>{t('sidebar.militaryGrade')}</Badge>
               </VStack>
               
               <Box w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={2}>MISSION STATUS:</Text>
+                <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={2}>{t('sidebar.missionStatus')}</Text>
                 <Flex align="center" justify="space-between">
-                  <Text>OPERATIONAL</Text>
+                  <Text>{t('sidebar.operational')}</Text>
                   <Box w="12px" h="12px" borderRadius="full" bg="green.400" />
                 </Flex>
               </Box>
@@ -94,18 +257,20 @@ export const LandingPage3 = () => {
               <Divider borderColor="rgba(74, 144, 226, 0.3)" />
               
               <VStack spacing={4} w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm" alignSelf="flex-start">CONTACT COMMAND:</Text>
-                <Button 
-                  as={Link}
-                  href="https://docs.google.com/forms/d/contact"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  leftIcon={<FiMessageCircle />}
-                  w="full" 
-                  colorScheme="yellow"
-                  _hover={{ transform: 'translateY(-2px)' }}
+                <Text color="yellow.400" fontWeight="bold" fontSize="sm" alignSelf="flex-start">{t('sidebar.documentation')}</Text>
+                <Button
+                    as={Link}
+                    href="https://docs.google.com/document/d/specifications"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    leftIcon={<FiFileText />}
+                    w="full"
+                    colorScheme="blue"
+                    variant="outline"
+                    _hover={{ transform: 'translateY(-2px)' }}
+                    justifyContent="flex-start"
                 >
-                  SECURE CHANNEL
+                  {t('sidebar.kortyDocs')}
                 </Button>
                 
                 <Button 
@@ -118,18 +283,19 @@ export const LandingPage3 = () => {
                   colorScheme="blue"
                   variant="outline"
                   _hover={{ transform: 'translateY(-2px)' }}
+                  justifyContent="flex-start"
                 >
-                  TECHNICAL DOCS
+                  {t('sidebar.akinakDocs')}
                 </Button>
               </VStack>
               
               <Divider borderColor="rgba(74, 144, 226, 0.3)" />
               
               <Box w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={3}>COMMAND CENTER:</Text>
-                <Text fontSize="sm">LOCATION: Kyiv, Ukraine</Text>
-                <Text fontSize="sm">COMM: +380 44 123 4567</Text>
-                <Text fontSize="sm">CHANNEL: airblock@ua-defense.gov</Text>
+                <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={3}>{t('sidebar.commandCenter')}</Text>
+                <Text fontSize="sm">{t('sidebar.location')} <br/> {t('sidebar.locationValue')}</Text>
+                <Text fontSize="sm">{t('sidebar.communication')} <br/> +380 (97) 329-54-57 <br/> +380 (73) 345-88-50</Text>
+                <Text fontSize="sm">{t('sidebar.channel')} airblock345@gmail.com</Text>
               </Box>
             </VStack>
           </MotionBox>
@@ -139,9 +305,9 @@ export const LandingPage3 = () => {
             flex={1} 
             direction="column" 
             ml={{ base: 0, lg: 8 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: "0.7", delay: "0.3" }}
+            variants={fadeInFromRight}
+            initial="hidden"
+            animate="visible"
           >
             {/* Top banner */}
             <Box 
@@ -159,14 +325,14 @@ export const LandingPage3 = () => {
                 letterSpacing="wider"
                 textTransform="uppercase"
               >
-                UKRAINE AIRBLOCK
+                {t('header.title')}
               </Heading>
               <Text fontSize="lg">
-                Advanced tactical plane-drone system with multi-mission capability. Developed for defense operations with state-of-the-art technology ensuring battlefield dominance.
+                {t('header.description')}
               </Text>
             </Box>
             
-            {/* Main drone image */}
+            {/* Main drone slideshow */}
             <Box 
               position="relative" 
               mb={6}
@@ -174,12 +340,9 @@ export const LandingPage3 = () => {
               overflow="hidden"
               border="1px solid"
               borderColor="rgba(74, 144, 226, 0.3)"
+              height={{ base: "250px", md: "400px" }}
             >
-              <Image 
-                src="https://placehold.co/1200x500/0A1428/FFC107?text=AIRBLOCK+TACTICAL+DRONE"
-                alt="AIRBLOCK Tactical Drone" 
-                w="100%"
-              />
+              <ImageSlideshow />
               
               {/* HUD-like overlay elements */}
               <Box 
@@ -189,6 +352,8 @@ export const LandingPage3 = () => {
                 right={0} 
                 bottom={0}
                 bgGradient="linear(to-b, rgba(4,13,24,0.3), rgba(4,13,24,0))"
+                pointerEvents="none"
+                zIndex="2"
               />
               <Box 
                 position="absolute" 
@@ -200,8 +365,9 @@ export const LandingPage3 = () => {
                 borderRadius="md"
                 borderLeft="2px solid"
                 borderColor="yellow.400"
+                zIndex="3"
               >
-                <Text fontFamily="mono" fontSize="sm">TARGET ACQUISITION SYSTEM</Text>
+                <Text fontFamily="mono" fontSize="sm">{t('hud.targetAcquisition')}</Text>
               </Box>
               <Box 
                 position="absolute" 
@@ -213,18 +379,19 @@ export const LandingPage3 = () => {
                 borderRadius="md"
                 borderRight="2px solid"
                 borderColor="yellow.400"
+                zIndex="3"
               >
-                <Text fontFamily="mono" fontSize="sm">SYSTEM READY</Text>
+                <Text fontFamily="mono" fontSize="sm">{t('hud.systemReady')}</Text>
               </Box>
             </Box>
             
             {/* Specs grid */}
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={8}>
               {[
-                { icon: FiShield, title: "ARMORED CHASSIS", description: "Reinforced composite construction with ballistic protection" },
-                { icon: FiEye, title: "ADVANCED OPTICS", description: "Multi-spectrum imaging with thermal and night vision" },
-                { icon: FiWifi, title: "SECURE COMMS", description: "Encrypted communication with anti-jamming protection" },
-                { icon: FiTarget, title: "PRECISION SYSTEMS", description: "Sub-meter targeting accuracy with GPS-denied capability" }
+                { icon: FiFastForward, title: 'feature.longRange', description: 'feature.longRangeDesc' },
+                { icon: FiEye, title: 'feature.optics', description: 'feature.opticsDesc' },
+                { icon: FiWifi, title: 'feature.comms', description: 'feature.commsDesc' },
+                { icon: FiTarget, title: 'feature.precision', description: 'feature.precisionDesc' }
               ].map((spec, i) => (
                 <Box 
                   key={i}
@@ -236,13 +403,13 @@ export const LandingPage3 = () => {
                   as={motion.div}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: "0.5", delay: `${0.5 + (i * 0.1)}` }}
+                  transition={{ duration: '0.5', delay: `${0.5 + (i * 0.1)}` }}
                 >
                   <HStack spacing={4}>
                     <Icon as={spec.icon} boxSize={6} color="yellow.400" />
                     <VStack align="start" spacing={1}>
-                      <Text fontWeight="bold">{spec.title}</Text>
-                      <Text fontSize="sm" color="gray.300">{spec.description}</Text>
+                      <Text fontWeight="bold">{t(spec.title)}</Text>
+                      <Text fontSize="sm" color="gray.300">{t(spec.description)}</Text>
                     </VStack>
                   </HStack>
                 </Box>
