@@ -179,7 +179,9 @@ export const LandingPage3 = () => {
       h="100%"
     >
       {/* Language Switch */}
-      <LanguageSwitch />
+  <Box position="fixed" top={4} right={4} zIndex={10}>
+        <LanguageSwitch />
+      </Box>
       
       {/* Radial gradient overlay */}
       <Box
