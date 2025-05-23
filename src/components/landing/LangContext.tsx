@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext } from 'react';
+import type { ReactNode } from 'react';
 
 type Language = 'uk' | 'en';
 
@@ -43,16 +44,24 @@ const translations: Translations = {
     uk: 'ТЕХНІЧНА ДОКУМЕНТАЦІЯ:'
   },
   'sidebar.kortyDocs': {
-    en: '"KORTYK" DOCS',
+    en: '"KORTYK"',
     uk: '"КОРТИК"'
   },
   'sidebar.akinakDocs': {
-    en: '"AKINAK" DOCS',
+    en: '"AKINAK"',
     uk: '"АКІНАК"'
+  },
+  'sidebar.krokDocs': {
+    en: '"KROK"',
+    uk: '"КРОК"'
+  },
+  'sidebar.kibecDocs': {
+    en: '"KIBEC"',
+    uk: '"КІБЕЦ"'
   },
   'sidebar.commandCenter': {
     en: 'COMMAND CENTER:',
-    uk: 'КОНТАКТНИЙ ЦЕНТР:'
+    uk: 'КОНТАКТИ:'
   },
   'sidebar.location': {
     en: 'LOCATION:',
@@ -60,7 +69,7 @@ const translations: Translations = {
   },
   'sidebar.locationValue': {
     en: 'AirBlock Technical Center, Ukraine',
-    uk: 'Технічний центр AirBlock, Україна'
+    uk: 'AirBlock Технічний центр, Україна'
   },
   'sidebar.communication': {
     en: 'COMMUNICATION:',
@@ -119,7 +128,21 @@ const translations: Translations = {
   'lang.switch': {
     en: 'UA',
     uk: 'EN'
-  }
+  },
+
+  // Menu items
+  'menu.techDocs': {
+    en: 'Specifications',
+    uk: 'Технічна документація'
+  },
+  'menu.photos': {
+    en: 'Photos',
+    uk: 'Фотографії'
+  },
+  'menu.videos': {
+    en: 'Videos',
+    uk: 'Відео'
+  },
 };
 
 interface LangContextType {

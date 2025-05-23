@@ -1,5 +1,5 @@
-import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton } from '@chakra-ui/react';
-import {FiFileText, FiMessageCircle, FiShield, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronLeft, FiChevronRight} from 'react-icons/fi';
+import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import {FiFileText, FiMessageCircle, FiShield, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronLeft, FiChevronRight, FiChevronDown, FiImage, FiVideo} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import airblockLogo from '../../assets/airblock-logo.svg';
 import { useState, useEffect } from 'react';
@@ -166,26 +166,26 @@ const ImageSlideshow = () => {
 };
 
 export const LandingPage3 = () => {
-  const logoSize = useBreakpointValue({ base: '150px', md: '200px' });
+  const logoSize = useBreakpointValue({ base: '180px', md: '200px' });
   const { t } = useLang();
   
   return (
     <Box 
-      minH="100vh" 
       bg="#040D18" 
       color="gray.100" 
       position="relative"
-      overflow="auto"
-      h="100%"
+      minH="100vh"
+      overflowY="auto"
+      overflowX="hidden"
     >
       {/* Language Switch */}
-  <Box position="fixed" top={4} right={4} zIndex={10}>
+      <Box position="fixed" top={4} right={4} zIndex={10}>
         <LanguageSwitch />
       </Box>
       
       {/* Radial gradient overlay */}
       <Box
-        position="absolute"
+        position="fixed"
         top="0"
         right="0"
         bottom="0"
@@ -197,7 +197,7 @@ export const LandingPage3 = () => {
       
       {/* Grid pattern */}
       <Box
-        position="absolute"
+        position="fixed"
         top="0"
         right="0"
         bottom="0"
@@ -209,12 +209,17 @@ export const LandingPage3 = () => {
         zIndex="0"
       />
       
-      <Container maxW="1400px" py={{ base: 10, md: 20 }} position="relative" zIndex="1">
+      <Container 
+        maxW="1400px" 
+        py={{ base: 5, md: 5 }} 
+        position="relative" 
+        zIndex="1"
+      >
         <Flex 
           direction={{ base: "column", lg: "row" }}
           justify="space-between"
           align="stretch"
-          gap={{ base: 10, lg: 0 }}
+          gap={{ base: 10, lg: 8 }}
         >
           {/* Left Panel - Military-style sidebar */}
           <MotionBox
@@ -231,7 +236,7 @@ export const LandingPage3 = () => {
             position={{ base: "relative", lg: "sticky" }}
             top={{ lg: "20px" }}
             alignSelf={{ lg: "flex-start" }}
-            h={{ lg: "fit-content" }}
+            h="fit-content"
           >
             <VStack spacing={8} align="start">
               <Image 
@@ -240,11 +245,13 @@ export const LandingPage3 = () => {
                 w={logoSize}
                 alignSelf="center"
                 mb={2}
+                height={150}
+                transform="scale(1.5)"
               />
               
               <VStack align="start" spacing={1} w="full">
                 <Text color="yellow.400" fontWeight="bold" fontSize="sm">{t('sidebar.models')}</Text>
-                <Text fontFamily="mono" fontSize="xl" fontWeight="bold">"КОРТИК" <br/> "АКІНАК Uj-52" "АКІНАК Uj-52-FT"</Text>
+                <Text fontFamily="mono" fontSize="xl" fontWeight="bold">"КОРТИК" <br/> "АКІНАК Uj-52" "АКІНАК Uj-52-FT" "КРОК" "КІБЕЦ"</Text>
                 <Badge colorScheme="blue" mt={1}>{t('sidebar.militaryGrade')}</Badge>
               </VStack>
               
@@ -260,44 +267,187 @@ export const LandingPage3 = () => {
               
               <VStack spacing={4} w="full">
                 <Text color="yellow.400" fontWeight="bold" fontSize="sm" alignSelf="flex-start">{t('sidebar.documentation')}</Text>
-                <Button
-                    as={Link}
-                    href="https://docs.google.com/document/d/specifications"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    leftIcon={<FiFileText />}
+                
+                <Menu>
+                  <MenuButton
+                    as={Button}
                     w="full"
                     colorScheme="blue"
                     variant="outline"
+                    rightIcon={<FiChevronDown />}
+                    leftIcon={<FiFileText />}
                     _hover={{ transform: 'translateY(-2px)' }}
-                    justifyContent="flex-start"
-                >
-                  {t('sidebar.kortyDocs')}
-                </Button>
-                
-                <Button 
-                  as={Link}
-                  href="https://docs.google.com/document/d/specifications"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  leftIcon={<FiFileText />}
-                  w="full" 
-                  colorScheme="blue"
-                  variant="outline"
-                  _hover={{ transform: 'translateY(-2px)' }}
-                  justifyContent="flex-start"
-                >
-                  {t('sidebar.akinakDocs')}
-                </Button>
+                  >
+                    {t('sidebar.krokDocs')}
+                  </MenuButton>
+                  <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                    <MenuItem 
+                      as={Link} 
+                      href="https://docs.google.com/document/d/specifications"
+                      icon={<FiFileText />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.techDocs')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#photos"
+                      icon={<FiImage />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.photos')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#videos"
+                      icon={<FiVideo />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.videos')}
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    w="full"
+                    colorScheme="blue"
+                    variant="outline"
+                    rightIcon={<FiChevronDown />}
+                    leftIcon={<FiFileText />}
+                    _hover={{ transform: 'translateY(-2px)' }}
+                  >
+                    {t('sidebar.kortyDocs')}
+                  </MenuButton>
+                  <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                    <MenuItem 
+                      as={Link} 
+                      href="https://docs.google.com/document/d/specifications"
+                      icon={<FiFileText />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.techDocs')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#photos"
+                      icon={<FiImage />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.photos')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#videos"
+                      icon={<FiVideo />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.videos')}
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    w="full"
+                    colorScheme="blue"
+                    variant="outline"
+                    rightIcon={<FiChevronDown />}
+                    leftIcon={<FiFileText />}
+                    _hover={{ transform: 'translateY(-2px)' }}
+                  >
+                    {t('sidebar.akinakDocs')}
+                  </MenuButton>
+                  <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                    <MenuItem 
+                      as={Link} 
+                      href="https://docs.google.com/document/d/specifications"
+                      icon={<FiFileText />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.techDocs')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#photos"
+                      icon={<FiImage />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.photos')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#videos"
+                      icon={<FiVideo />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.videos')}
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+
+                <Menu>
+                  <MenuButton
+                    as={Button}
+                    w="full"
+                    colorScheme="blue"
+                    variant="outline"
+                    rightIcon={<FiChevronDown />}
+                    leftIcon={<FiFileText />}
+                    _hover={{ transform: 'translateY(-2px)' }}
+                  >
+                    {t('sidebar.kibecDocs')}
+                  </MenuButton>
+                  <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                    <MenuItem 
+                      as={Link} 
+                      href="https://docs.google.com/document/d/specifications"
+                      icon={<FiFileText />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.techDocs')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#photos"
+                      icon={<FiImage />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.photos')}
+                    </MenuItem>
+                    <MenuItem 
+                      as={Link} 
+                      href="#videos"
+                      icon={<FiVideo />}
+                      bg="rgba(4, 13, 24, 0.9)"
+                      _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    >
+                      {t('menu.videos')}
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </VStack>
               
               <Divider borderColor="rgba(74, 144, 226, 0.3)" />
               
               <Box w="full">
                 <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={3}>{t('sidebar.commandCenter')}</Text>
-                <Text fontSize="sm">{t('sidebar.location')} <br/> {t('sidebar.locationValue')}</Text>
-                <Text fontSize="sm">{t('sidebar.communication')} <br/> +380 (97) 329-54-57 <br/> +380 (73) 345-88-50</Text>
-                <Text fontSize="sm">{t('sidebar.channel')} airblock345@gmail.com</Text>
+                <Text fontSize="sm">{t('sidebar.locationValue')}</Text>
+                <Text fontSize="sm">+380 (73) 345-88-50 <br/> +380 (97) 329-54-57 </Text>
+                <Text fontSize="sm">airblock345@gmail.com</Text>
               </Box>
             </VStack>
           </MotionBox>
@@ -306,7 +456,6 @@ export const LandingPage3 = () => {
           <MotionFlex 
             flex={1} 
             direction="column" 
-            ml={{ base: 0, lg: 8 }}
             variants={fadeInFromRight}
             initial="hidden"
             animate="visible"
@@ -357,34 +506,6 @@ export const LandingPage3 = () => {
                 pointerEvents="none"
                 zIndex="2"
               />
-              <Box 
-                position="absolute" 
-                top={4} 
-                left={4}
-                px={3}
-                py={1}
-                bg="rgba(4, 13, 24, 0.7)"
-                borderRadius="md"
-                borderLeft="2px solid"
-                borderColor="yellow.400"
-                zIndex="3"
-              >
-                <Text fontFamily="mono" fontSize="sm">{t('hud.targetAcquisition')}</Text>
-              </Box>
-              <Box 
-                position="absolute" 
-                bottom={4} 
-                right={4}
-                px={3}
-                py={1}
-                bg="rgba(4, 13, 24, 0.7)"
-                borderRadius="md"
-                borderRight="2px solid"
-                borderColor="yellow.400"
-                zIndex="3"
-              >
-                <Text fontFamily="mono" fontSize="sm">{t('hud.systemReady')}</Text>
-              </Box>
             </Box>
             
             {/* Specs grid */}
