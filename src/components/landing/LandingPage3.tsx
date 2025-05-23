@@ -210,8 +210,9 @@ export const LandingPage3 = () => {
       />
       
       <Container 
-        maxW="1400px" 
-        py={{ base: 5, md: 5 }} 
+	maxW="1400px" 
+        pt={{ base: "80px", md: "40px" }}
+        pb={{ base: "40px", md: "40px" }}
         position="relative" 
         zIndex="1"
       >
