@@ -1,16 +1,15 @@
-import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
-import {FiFileText, FiMessageCircle, FiShield, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronLeft, FiChevronRight, FiChevronDown, FiImage, FiVideo} from 'react-icons/fi';
+import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton, Menu, MenuButton, MenuList, MenuItem, keyframes } from '@chakra-ui/react';
+import {FiFileText, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronDown, FiImage, FiVideo, FiCompass, FiCrosshair, FiNavigation2} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import airblockLogo from '../../assets/airblock-logo.svg';
-import { useState, useEffect } from 'react';
 import { useLang } from './LangContext';
 import { LanguageSwitch } from './LanguageSwitch';
 
-// Import images directly
+// Import background image
+import picture4 from '../../assets/Picture_4.jpg';
 import picture1 from '../../assets/Picture_1.png';
 import picture2 from '../../assets/Picture_2.jpg';
 import picture3 from '../../assets/Picture_3.jpg';
-import picture4 from '../../assets/Picture_4.png';
 import picture5 from '../../assets/Picture_5.jpg';
 import picture6 from '../../assets/Picture_6.png';
 
@@ -36,134 +35,12 @@ const fadeInFromRight = {
   }
 };
 
-// Slideshow component
-const ImageSlideshow = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  
-  // Images from assets folder
-  const slides = [
-    {
-      url: picture1,
-      alt: "AIRBLOCK Tactical Drone Image 1"
-    },
-    {
-      url: picture2,
-      alt: "AIRBLOCK Tactical Drone Image 2"
-    },
-    {
-      url: picture3,
-      alt: "AIRBLOCK Tactical Drone Image 3"
-    },
-    {
-      url: picture4,
-      alt: "AIRBLOCK Tactical Drone Image 4"
-    },
-    {
-      url: picture5,
-      alt: "AIRBLOCK Tactical Drone Image 5"
-    },
-    {
-      url: picture6,
-      alt: "AIRBLOCK Tactical Drone Image 6"
-    }
-  ];
-  
-  // Auto-advance slides
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 5000);
-    
-    return () => clearInterval(timer);
-  }, [slides.length]);
-  
-  const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-  };
-  
-  const prevSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
-  };
-  
-  return (
-    <Box position="relative" height="100%" width="100%">
-      {slides.map((slide, index) => (
-        <Box
-          key={index}
-          position="absolute"
-          top="0"
-          left="0"
-          width="100%"
-          height="100%"
-          opacity={index === currentSlide ? 1 : 0}
-          transition="opacity 0.5s ease-in-out"
-          zIndex={index === currentSlide ? 1 : 0}
-        >
-          <Image
-            src={slide.url}
-            alt={slide.alt}
-            width="100%"
-            height="100%"
-            objectFit="cover"
-          />
-        </Box>
-      ))}
-      
-      {/* Navigation arrows */}
-      <IconButton
-        aria-label="Previous slide"
-        icon={<FiChevronLeft size="24px" />}
-        position="absolute"
-        left="10px"
-        top="50%"
-        transform="translateY(-50%)"
-        zIndex="2"
-        bg="rgba(0,0,0,0.5)"
-        color="white"
-        borderRadius="full"
-        onClick={prevSlide}
-        _hover={{ bg: "rgba(0,0,0,0.7)" }}
-      />
-      
-      <IconButton
-        aria-label="Next slide"
-        icon={<FiChevronRight size="24px" />}
-        position="absolute"
-        right="10px"
-        top="50%"
-        transform="translateY(-50%)"
-        zIndex="2"
-        bg="rgba(0,0,0,0.5)"
-        color="white"
-        borderRadius="full"
-        onClick={nextSlide}
-        _hover={{ bg: "rgba(0,0,0,0.7)" }}
-      />
-      
-      {/* Slide indicators */}
-      <HStack
-        spacing={2}
-        position="absolute"
-        bottom="15px"
-        left="50%"
-        transform="translateX(-50%)"
-        zIndex="2"
-      >
-        {slides.map((_, index) => (
-          <Box
-            key={index}
-            w="8px"
-            h="8px"
-            borderRadius="full"
-            bg={index === currentSlide ? "yellow.400" : "whiteAlpha.600"}
-            cursor="pointer"
-            onClick={() => setCurrentSlide(index)}
-          />
-        ))}
-      </HStack>
-    </Box>
-  );
-};
+const gradientMove = keyframes`
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; }
+`;
+
+const gradientAnimation = `${gradientMove} 8s linear infinite`;
 
 export const LandingPage3 = () => {
   const logoSize = useBreakpointValue({ base: '180px', md: '200px' });
@@ -178,43 +55,159 @@ export const LandingPage3 = () => {
       overflowY="auto"
       overflowX="hidden"
     >
-      {/* Language Switch */}
-      <Box position="fixed" top={4} right={4} zIndex={10}>
-        <LanguageSwitch />
+      {/* Main Navigation Header */}
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bg="rgba(4, 13, 24, 0.9)"
+        borderBottom="1px solid"
+        borderColor="rgba(74, 144, 226, 0.3)"
+        backdropFilter="blur(5px)"
+        zIndex={100}
+      >
+        <Flex
+          justify="space-between"
+          align="center"
+          px={{ base: "10px", md: 8 }}
+          py={4}
+          maxW="1400px"
+          mx="auto"
+          height={70}
+        >
+          <Flex align="center" gap={4}>
+            <Image 
+              src={airblockLogo} 
+              alt="UA AIRBLOCK Logo" 
+              height="150px"
+              scale={2}
+              mt="-8px"
+              mb="-8px"
+            />
+            <Text
+              fontFamily="mono"
+              fontSize="xl"
+              fontWeight="bold"
+              color="yellow.400"
+              letterSpacing="wider"
+            >
+              UA AIRBLOCK
+            </Text>
+          </Flex>
+
+          <Box>
+            <LanguageSwitch />
+          </Box>
+        </Flex>
       </Box>
-      
-      {/* Radial gradient overlay */}
+
+      {/* Main background */}
       <Box
         position="fixed"
         top="0"
         right="0"
         bottom="0"
         left="0"
-        bgGradient="radial(circle at 70% 30%, rgba(21, 41, 82, 0.7), transparent 70%)"
-        pointerEvents="none"
+        backgroundImage={`url(${picture4})`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+        backgroundAttachment="fixed"
+        opacity={0.2}
         zIndex="0"
       />
-      
-      {/* Grid pattern */}
+
+      {/* Dark overlay with tech pattern */}
       <Box
         position="fixed"
         top="0"
         right="0"
         bottom="0"
         left="0"
-        opacity="0.15"
-        backgroundImage="linear-gradient(rgba(74, 144, 226, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 144, 226, 0.3) 1px, transparent 1px)"
-        backgroundSize="50px 50px"
+        bg="rgba(4, 13, 24, 0.95)"
+        zIndex="0"
+        _after={{
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: "linear-gradient(0deg, rgba(74, 144, 226, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 144, 226, 0.03) 1px, transparent 1px)",
+          backgroundSize: "50px 50px",
+          opacity: 0.5
+        }}
+      />
+
+      {/* Subtle radial gradient */}
+      <Box
+        position="fixed"
+        top="0"
+        right="0"
+        bottom="0"
+        left="0"
+        bgGradient="radial(circle at 70% 30%, rgba(74, 144, 226, 0.05), transparent 60%)"
         pointerEvents="none"
         zIndex="0"
       />
-      
+
+      {/* Animated subtle waves */}
+      <Box
+        position="fixed"
+        top="0"
+        right="0"
+        bottom="0"
+        left="0"
+        opacity="0.02"
+        backgroundImage="repeating-linear-gradient(45deg, rgba(74, 144, 226, 0.1) 0%, transparent 2%, transparent 4%, rgba(74, 144, 226, 0.1) 6%), repeating-linear-gradient(-45deg, rgba(74, 144, 226, 0.1) 0%, transparent 2%, transparent 4%, rgba(74, 144, 226, 0.1) 6%)"
+        backgroundSize="400px 400px"
+        pointerEvents="none"
+        zIndex="0"
+        _after={{
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "repeating-linear-gradient(90deg, rgba(74, 144, 226, 0.03) 0px, transparent 4px, transparent 40px)",
+          backgroundSize: "200px 200px",
+          animation: gradientAnimation
+        }}
+      />
+
+      {/* Modern dot matrix */}
+      <Box
+        position="fixed"
+        top="0"
+        right="0"
+        bottom="0"
+        left="0"
+        opacity="0.015"
+        backgroundImage="radial-gradient(circle at center, rgba(74, 144, 226, 0.2) 0%, transparent 1px)"
+        backgroundSize="40px 40px"
+        backgroundPosition="center center"
+        pointerEvents="none"
+        zIndex="0"
+        _after={{
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(135deg, rgba(74, 144, 226, 0.05) 0%, transparent 100%)",
+          backgroundSize: "200% 200%",
+          animation: `${gradientMove} 15s ease infinite`
+        }}
+      />
+
       <Container 
-	maxW="1400px" 
-        pt={{ base: "80px", md: "40px" }}
-        pb={{ base: "40px", md: "40px" }}
+        maxW="100%" 
+        p={0}
         position="relative" 
         zIndex="1"
+        pt="70px" // Add padding top to account for fixed header
       >
         <Flex 
           direction={{ base: "column", lg: "row" }}
@@ -223,7 +216,7 @@ export const LandingPage3 = () => {
           gap={{ base: 10, lg: 8 }}
         >
           {/* Left Panel - Military-style sidebar */}
-          <MotionBox
+{/*           <MotionBox
             w={{ base: "100%", lg: "300px" }}
             bg="rgba(4, 13, 24, 0.8)"
             border="1px solid"
@@ -238,37 +231,12 @@ export const LandingPage3 = () => {
             top={{ lg: "20px" }}
             alignSelf={{ lg: "flex-start" }}
             h="fit-content"
+            mx={{ base: 4, lg: 8 }}
           >
             <VStack spacing={8} align="start">
-              <Image 
-                src={airblockLogo} 
-                alt="UA AIRBLOCK Logo" 
-                w={logoSize}
-                alignSelf="center"
-                mb={2}
-                height={150}
-                transform="scale(1.5)"
-              />
-              
-              <VStack align="start" spacing={1} w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm">{t('sidebar.models')}</Text>
-                <Text fontFamily="mono" fontSize="xl" fontWeight="bold">"КОРТИК" <br/> "АКІНАК Uj-52" "АКІНАК Uj-52-FT" "КРОК" "КІБЕЦ"</Text>
-                <Badge colorScheme="blue" mt={1}>{t('sidebar.militaryGrade')}</Badge>
-              </VStack>
-              
-              <Box w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm" mb={2}>{t('sidebar.missionStatus')}</Text>
-                <Flex align="center" justify="space-between">
-                  <Text>{t('sidebar.operational')}</Text>
-                  <Box w="12px" h="12px" borderRadius="full" bg="green.400" />
-                </Flex>
-              </Box>
-              
               <Divider borderColor="rgba(74, 144, 226, 0.3)" />
               
               <VStack spacing={4} w="full">
-                <Text color="yellow.400" fontWeight="bold" fontSize="sm" alignSelf="flex-start">{t('sidebar.documentation')}</Text>
-                
                 <Menu>
                   <MenuButton
                     as={Button}
@@ -451,7 +419,7 @@ export const LandingPage3 = () => {
                 <Text fontSize="sm">airblock345@gmail.com</Text>
               </Box>
             </VStack>
-          </MotionBox>
+          </MotionBox> */}
           
           {/* Main Content Area */}
           <MotionFlex 
@@ -460,57 +428,291 @@ export const LandingPage3 = () => {
             variants={fadeInFromRight}
             initial="hidden"
             animate="visible"
+            // mr={{ base: 4, lg: 8 }}
           >
             {/* Top banner */}
             <Box 
-              bg="rgba(4, 13, 24, 0.6)" 
-              p={6} 
-              borderRadius="md"
-              border="1px solid"
-              borderColor="rgba(74, 144, 226, 0.3)"
-              mb={6}
-            >
-              <Heading 
-                size="xl" 
-                mb={4}
-                color="yellow.400"
-                letterSpacing="wider"
-                textTransform="uppercase"
-              >
-                {t('header.title')}
-              </Heading>
-              <Text fontSize="lg">
-                {t('header.description')}
-              </Text>
-            </Box>
-            
-            {/* Main drone slideshow */}
-            <Box 
-              position="relative" 
-              mb={6}
-              borderRadius="md"
+              position="relative"
+              width="100vw"
+              height="70vh"
+              left="50%"
+              right="50%"
+              marginLeft="-50vw"
+              marginRight="-50vw"
               overflow="hidden"
-              border="1px solid"
-              borderColor="rgba(74, 144, 226, 0.3)"
-              height={{ base: "250px", md: "400px" }}
+              display="flex"
+              alignItems="start"
+              justifyContent="center"
+              mb={6}
             >
-              <ImageSlideshow />
-              
-              {/* HUD-like overlay elements */}
-              <Box 
-                position="absolute" 
-                top={0} 
-                left={0} 
-                right={0} 
+              {/* Background Image with Overlay */}
+              <Box
+                position="absolute"
+                top={0}
+                left={0}
+                right={0}
                 bottom={0}
-                bgGradient="linear(to-b, rgba(4,13,24,0.3), rgba(4,13,24,0))"
-                pointerEvents="none"
-                zIndex="2"
+                backgroundImage={`url(${picture4})`}
+                backgroundSize="cover"
+                backgroundPosition="center"
+                _after={{
+                  content: '""',
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  bg: "rgba(0, 0, 0, 0.4)",
+                }}
               />
+
+              {/* Content */}
+              <VStack
+                spacing={8}
+                maxW="1200px"
+                px={4}
+                position="relative"
+                zIndex={1}
+                textAlign="center"
+                pt="100px"
+              >
+                <Heading 
+                  fontSize={{ base: "28px", sm: "32px", md: "45px" }}
+                  color="white"
+                  letterSpacing="wider"
+                  textTransform="uppercase"
+                  fontFamily="mono"
+                  lineHeight="1.2"
+                  opacity={0.7}
+                  maxW={{ base: "90%", md: "100%" }}
+                  mx="auto"
+                >
+                  {t('header.description')}
+                </Heading>
+              </VStack>
             </Box>
-            
+
+            {/* Menu Buttons Section */}
+            <Flex 
+              direction={{ base: "column", md: "row" }}
+              gap={6}
+              mb={8}
+              mx="auto"
+              maxW="1200px"
+              px={4}
+              justify="center"
+              align="stretch"
+            >
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  w={{ base: "full", md: "250px" }}
+                  bg="rgb(0 0 0 / 60%)"
+                  border="1px solid"
+                  borderColor="rgba(74, 144, 226, 0.3)"
+                  borderRadius="md"
+                  rightIcon={<Icon as={FiChevronDown} color="yellow.400" />}
+                  leftIcon={<Icon as={FiCompass} color="yellow.400" />}
+                  _hover={{ 
+                    transform: 'translateY(-2px)',
+                    bg: "rgba(4, 13, 24, 0.8)"
+                  }}
+                  size="lg"
+                  py={6}
+                >
+                  {t('sidebar.krokDocs')}
+                </MenuButton>
+                <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                  <MenuItem 
+                    as={Link} 
+                    href="https://docs.google.com/document/d/specifications"
+                    icon={<FiFileText />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.techDocs')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#photos"
+                    icon={<FiImage />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.photos')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#videos"
+                    icon={<FiVideo />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.videos')}
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  w={{ base: "full", md: "250px" }}
+                  bg="rgb(0 0 0 / 60%)"
+                  border="1px solid"
+                  borderColor="rgba(74, 144, 226, 0.3)"
+                  borderRadius="md"
+                  rightIcon={<Icon as={FiChevronDown} color="yellow.400" />}
+                  leftIcon={<Icon as={FiTarget} color="yellow.400" />}
+                  _hover={{ 
+                    transform: 'translateY(-2px)',
+                    bg: "rgba(4, 13, 24, 0.8)"
+                  }}
+                  size="lg"
+                  py={6}
+                >
+                  {t('sidebar.kortyDocs')}
+                </MenuButton>
+                <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                  <MenuItem 
+                    as={Link} 
+                    href="https://docs.google.com/document/d/specifications"
+                    icon={<FiFileText />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.techDocs')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#photos"
+                    icon={<FiImage />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.photos')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#videos"
+                    icon={<FiVideo />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.videos')}
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  w={{ base: "full", md: "250px" }}
+                  bg="rgb(0 0 0 / 60%)"
+                  border="1px solid"
+                  borderColor="rgba(74, 144, 226, 0.3)"
+                  borderRadius="md"
+                  rightIcon={<Icon as={FiChevronDown} color="yellow.400" />}
+                  leftIcon={<Icon as={FiCrosshair} color="yellow.400" />}
+                  _hover={{ 
+                    transform: 'translateY(-2px)',
+                    bg: "rgba(4, 13, 24, 0.8)"
+                  }}
+                  size="lg"
+                  py={6}
+                >
+                  {t('sidebar.akinakDocs')}
+                </MenuButton>
+                <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                  <MenuItem 
+                    as={Link} 
+                    href="https://docs.google.com/document/d/specifications"
+                    icon={<FiFileText />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.techDocs')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#photos"
+                    icon={<FiImage />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.photos')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#videos"
+                    icon={<FiVideo />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.videos')}
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  w={{ base: "full", md: "250px" }}
+                  bg="rgb(0 0 0 / 60%)"
+                  border="1px solid"
+                  borderColor="rgba(74, 144, 226, 0.3)"
+                  borderRadius="md"
+                  rightIcon={<Icon as={FiChevronDown} color="yellow.400" />}
+                  leftIcon={<Icon as={FiNavigation2} color="yellow.400" />}
+                  _hover={{ 
+                    transform: 'translateY(-2px)',
+                    bg: "rgba(4, 13, 24, 0.8)"
+                  }}
+                  size="lg"
+                  py={6}
+                >
+                  {t('sidebar.kibecDocs')}
+                </MenuButton>
+                <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
+                  <MenuItem 
+                    as={Link} 
+                    href="https://docs.google.com/document/d/specifications"
+                    icon={<FiFileText />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.techDocs')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#photos"
+                    icon={<FiImage />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.photos')}
+                  </MenuItem>
+                  <MenuItem 
+                    as={Link} 
+                    href="#videos"
+                    icon={<FiVideo />}
+                    bg="rgba(4, 13, 24, 0.9)"
+                    _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                  >
+                    {t('menu.videos')}
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            </Flex>
+
             {/* Specs grid */}
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} mb={8}>
+            <SimpleGrid 
+              columns={{ base: 1, md: 2 }} 
+              spacing={6} 
+              mb={8}
+              mx="auto"
+              maxW="1200px"
+              px={4}
+            >
               {[
                 { icon: FiFastForward, title: 'feature.longRange', description: 'feature.longRangeDesc' },
                 { icon: FiEye, title: 'feature.optics', description: 'feature.opticsDesc' },
@@ -525,6 +727,7 @@ export const LandingPage3 = () => {
                   borderColor="rgba(74, 144, 226, 0.3)"
                   p={4}
                   as={motion.div}
+                  //width='42vw'
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: '0.5', delay: `${0.5 + (i * 0.1)}` }}
@@ -541,6 +744,37 @@ export const LandingPage3 = () => {
             </SimpleGrid>
           </MotionFlex>
         </Flex>
+              {/* Footer */}
+      <Box 
+        as="footer"
+        width="100%"
+        bg="rgba(4, 13, 24, 0.9)"
+        borderTop="1px solid"
+        borderColor="rgba(74, 144, 226, 0.3)"
+        mt="auto"
+        py={8}
+      >
+        <Container maxW="1200px">
+          <Flex 
+            direction={{ base: "column", md: "row" }}
+            justify="space-between"
+            align={{ base: "center", md: "start" }}
+            textAlign={{ base: "center", md: "left" }}
+            gap={6}
+          >
+            <Box>
+              <Text fontSize="sm">{t('sidebar.locationValue')}</Text>
+            </Box>
+            <Box>
+              <Text fontSize="sm" mb={2}>+380 (73) 345-88-50</Text>
+              <Text fontSize="sm">+380 (97) 329-54-57</Text>
+            </Box>
+            <Box>
+              <Text fontSize="sm">airblock345@gmail.com</Text>
+            </Box>
+          </Flex>
+        </Container>
+      </Box>
       </Container>
     </Box>
   );

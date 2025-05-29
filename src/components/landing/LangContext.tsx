@@ -18,8 +18,8 @@ const translations: Translations = {
     uk: 'UKRAINE AIRBLOCK'
   },
   'header.description': {
-    en: 'Strike unmanned aerial vehicles. Advanced tactical aircraft-drone systems with multi-purpose capabilities. Designed for defensive operations using the latest technologies to ensure dominance on the battlefield.',
-    uk: 'Ударні безпілотні літальні апарати. Передові тактичні системи літаків-дронів з багатоцільовими можливостями. Розроблені для оборонних операцій з використанням новітніх технологій для забезпечення домінування на полі бою.'
+    en: 'Strike and reconnaissance unmanned aerial vehicles',
+    uk: 'Ударно-розвідувальні безпілотні літальні апарати'
   },
   
   // Sidebar
