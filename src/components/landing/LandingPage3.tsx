@@ -766,10 +766,6 @@ export const LandingPage3 = () => {
               <Text fontSize="sm">{t('sidebar.locationValue')}</Text>
             </Box>
             <Box>
-              <Text fontSize="sm" mb={2}>+380 (73) 345-88-50</Text>
-              <Text fontSize="sm">+380 (97) 329-54-57</Text>
-            </Box>
-            <Box>
               <Text fontSize="sm">airblock345@gmail.com</Text>
             </Box>
           </Flex>
