@@ -57,7 +57,7 @@ const translations: Translations = {
   },
   'sidebar.kibecDocs': {
     en: '"KIBEC"',
-    uk: '"КІБЕЦ"'
+    uk: '"КІБЕЦЬ"'
   },
   'sidebar.commandCenter': {
     en: 'COMMAND CENTER:',
@@ -83,37 +83,36 @@ const translations: Translations = {
   // Features
   'feature.longRange': {
     en: 'AMAZING LONG RANGE',
-    uk: 'ВРАЖАЮЧА ДАЛЬНІСТЬ ПОЛЬОТУ'
+    uk: 'ДАЛЬНІСТЬ ПОЛЬОТУ'
   },
   'feature.longRangeDesc': {
     en: 'Maximum flight range - 100 km',
     uk: 'Максимальна дальність польоту - 100 км'
   },
   'feature.optics': {
-    en: 'ADVANCED OPTICS',
-    uk: 'ПЕРЕДОВА ОПТИКА'
+    en: 'OPTICS',
+    uk: 'ОПТИКА'
   },
   'feature.opticsDesc': {
-    en: 'Multi-spectrum imaging with thermal and night vision',
-    uk: 'Мультиспектральне зображення з тепловим та нічним баченням'
+    en: 'High-quality optical sensors',
+    uk: 'Високоякісні оптичні сенсори'
   },
   'feature.comms': {
-    en: 'SECURE COMMS',
-    uk: 'ЗАХИЩЕНИЙ ЗВ\'ЯЗОК'
+    en: 'SECURE COMMS AND NAVIGATION',
+    uk: 'ЗАХИЩЕНИЙ ЗВ\'ЯЗОК ТА НАВІГАЦІЯ'
   },
   'feature.commsDesc': {
     en: 'Encrypted communication with anti-jamming protection',
     uk: 'Шифрований зв\'язок із захистом від перешкод'
   },
   'feature.precision': {
-    en: 'PRECISION SYSTEMS',
-    uk: 'СИСТЕМИ ТОЧНОГО НАВЕДЕННЯ'
+    en: 'MODERN TARGETING SYSTEMS',
+    uk: 'СУЧАСНІ ПРИЦІЛЮВАЛЬНІ СИСТЕМИ'
   },
   'feature.precisionDesc': {
-    en: 'Sub-meter targeting accuracy with GPS-denied capability',
-    uk: 'Субметрова точність наведення з можливістю роботи без GPS'
+    en: 'Automatic target homing',
+    uk: 'Автоматичне донаведення на ціль'
   },
-  
   // HUD elements
   'hud.targetAcquisition': {
     en: 'TARGET ACQUISITION SYSTEM',
@@ -133,7 +132,7 @@ const translations: Translations = {
   // Menu items
   'menu.techDocs': {
     en: 'Specifications',
-    uk: 'Технічна документація'
+    uk: 'Опис'
   },
   'menu.photos': {
     en: 'Photos',

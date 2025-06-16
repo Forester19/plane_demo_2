@@ -1,9 +1,7 @@
-import { Flex, Box, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue, Image } from '@chakra-ui/react';
 import { useLang } from './LangContext';
-
-// Flag emojis
-const UA_FLAG = "🇺🇦";
-const UK_FLAG = "🇬🇧";
+import ukraineFlag from '../../assets/ukraine-flag.svg';
+import ukFlag from '../../assets/uk-flag.svg';
 
 export const LanguageSwitch = () => {
   const { language, setLanguage } = useLang();
@@ -37,8 +35,15 @@ export const LanguageSwitch = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        px={1}
       >
-        {UA_FLAG}
+        <Image 
+          src={ukraineFlag} 
+          alt="Ukrainian flag" 
+          width="20px" 
+          height="13px"
+          borderRadius="2px"
+        />
       </Box>
       <Box
         py={1}
@@ -53,8 +58,15 @@ export const LanguageSwitch = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        px={1}
       >
-        {UK_FLAG}
+        <Image 
+          src={ukFlag} 
+          alt="UK flag" 
+          width="20px" 
+          height="13px"
+          borderRadius="2px"
+        />
       </Box>
     </Flex>
   );

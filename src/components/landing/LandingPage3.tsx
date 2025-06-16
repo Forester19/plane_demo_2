@@ -7,11 +7,6 @@ import { LanguageSwitch } from './LanguageSwitch';
 
 // Import background image
 import picture4 from '../../assets/Picture_4.jpg';
-import picture1 from '../../assets/Picture_1.png';
-import picture2 from '../../assets/Picture_2.jpg';
-import picture3 from '../../assets/Picture_3.jpg';
-import picture5 from '../../assets/Picture_5.jpg';
-import picture6 from '../../assets/Picture_6.png';
 
 const MotionBox = motion(Box);
 const MotionFlex = motion(Flex);
@@ -92,7 +87,7 @@ export const LandingPage3 = () => {
               color="yellow.400"
               letterSpacing="wider"
             >
-              UA AIRBLOCK
+              AIRBLOCK TECHNICAL CENTER
             </Text>
           </Flex>
 
@@ -109,7 +104,6 @@ export const LandingPage3 = () => {
         right="0"
         bottom="0"
         left="0"
-        backgroundImage={`url(${picture4})`}
         backgroundSize="cover"
         backgroundPosition="center"
         backgroundAttachment="fixed"
@@ -455,6 +449,16 @@ export const LandingPage3 = () => {
                 backgroundImage={`url(${picture4})`}
                 backgroundSize="cover"
                 backgroundPosition="center"
+                _before={{
+                  content: '""',
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  height: "50%",
+                  background: "linear-gradient(to bottom, rgba(4, 13, 24, 0) 0%, rgba(4, 13, 24, 0.95) 100%)",
+                  zIndex: 0
+                }}
                 _after={{
                   content: '""',
                   position: "absolute",
@@ -462,7 +466,7 @@ export const LandingPage3 = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  bg: "rgba(0, 0, 0, 0.4)",
+                  bg: "rgba(0, 0, 0, 0.2)",
                 }}
               />
 
@@ -763,10 +767,10 @@ export const LandingPage3 = () => {
             gap={6}
           >
             <Box>
-              <Text fontSize="sm">{t('sidebar.locationValue')}</Text>
+              <Text fontSize="sm" color="yellow.400">{t('sidebar.locationValue')}</Text>
             </Box>
             <Box>
-              <Text fontSize="sm">airblock345@gmail.com</Text>
+              <Text fontSize="sm" color="yellow.400">airblock345@gmail.com</Text>
             </Box>
           </Flex>
         </Container>
