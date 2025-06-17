@@ -86,6 +86,7 @@ export const LandingPage3 = () => {
               fontWeight="bold"
               color="yellow.400"
               letterSpacing="wider"
+	      lineHeight="normal"
             >
               AIRBLOCK TECHNICAL CENTER
             </Text>
