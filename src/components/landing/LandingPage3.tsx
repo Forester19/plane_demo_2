@@ -202,6 +202,7 @@ export const LandingPage3 = () => {
         position="relative" 
         zIndex="1"
         pt="70px" // Add padding top to account for fixed header
+	pb={{ base: "30px", md: 0 }} // Add padding bottom for mobile
       >
         <Flex 
           direction={{ base: "column", lg: "row" }}

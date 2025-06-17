@@ -18,8 +18,8 @@ const translations: Translations = {
     uk: 'UKRAINE AIRBLOCK'
   },
   'header.description': {
-    en: 'Strike and reconnaissance unmanned aerial vehicles',
-    uk: 'Ударно-розвідувальні безпілотні літальні апарати'
+    en: 'Strike and reconnaissance unmanned aerial complexes',
+    uk: 'Ударно-розвідувальні безпілотні літальні комплекси'
   },
   
   // Sidebar
