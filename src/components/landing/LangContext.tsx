@@ -47,9 +47,9 @@ const translations: Translations = {
     en: '"KORTYK"',
     uk: '"КОРТИК"'
   },
-  'sidebar.akinakDocs': {
-    en: '"AKINAK"',
-    uk: '"АКІНАК"'
+  'sidebar.barbosDocs': {
+    en: '"BARBOS"',
+    uk: '"БАРБОС"'
   },
   'sidebar.krokDocs': {
     en: '"KROK"',
@@ -136,7 +136,7 @@ const translations: Translations = {
   },
   'menu.photos': {
     en: 'Photos',
-    uk: 'Фотографії'
+    uk: 'Фото'
   },
   'menu.videos': {
     en: 'Videos',

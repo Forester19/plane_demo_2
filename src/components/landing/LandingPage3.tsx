@@ -329,7 +329,7 @@ export const LandingPage3 = () => {
                     leftIcon={<FiFileText />}
                     _hover={{ transform: 'translateY(-2px)' }}
                   >
-                    {t('sidebar.akinakDocs')}
+                    {t('sidebar.barbosDocs')}
                   </MenuButton>
                   <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                     <MenuItem 
@@ -626,7 +626,7 @@ export const LandingPage3 = () => {
                   size="lg"
                   py={6}
                 >
-                  {t('sidebar.akinakDocs')}
+                  {t('sidebar.barbosDocs')}
                 </MenuButton>
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
