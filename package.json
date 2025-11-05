@@ -14,6 +14,7 @@
   "homepage": "https://forester19.github.io/plane_demo_2/",
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@chakra-ui/system": "^2.6.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "framer-motion": "^11.0.8",
@@ -31,6 +32,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
     "gh-pages": "^6.3.0",
+    "terser": "^5.44.1",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
   }
