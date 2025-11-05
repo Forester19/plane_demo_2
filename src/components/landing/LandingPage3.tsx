@@ -531,7 +531,7 @@ export const LandingPage3 = () => {
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
                     as={Link} 
-                    href="https://docs.google.com/document/d/specifications"
+                    href="https://drive.google.com/drive/folders/1C9bEX-xZiTUBX7QimKz8QrbXE5kNNmvn?usp=drive_link"
                     icon={<FiFileText />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
@@ -540,7 +540,7 @@ export const LandingPage3 = () => {
                   </MenuItem>
                   <MenuItem 
                     as={Link} 
-                    href="#photos"
+                    href="https://drive.google.com/drive/folders/1SFArsn5FP83wmTG-FNUgeRGNQPyYvj_x?usp=drive_link"
                     icon={<FiImage />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
@@ -549,7 +549,7 @@ export const LandingPage3 = () => {
                   </MenuItem>
                   <MenuItem 
                     as={Link} 
-                    href="#videos"
+                    href="https://drive.google.com/drive/folders/1Ix1gmlJOyextYtYFVMojbrrlj2j_FhtC?usp=drive_link"
                     icon={<FiVideo />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}

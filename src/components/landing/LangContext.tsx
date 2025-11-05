@@ -48,8 +48,8 @@ const translations: Translations = {
     uk: '"КОРТИК"'
   },
   'sidebar.barbosDocs': {
-    en: '"BARBOS"',
-    uk: '"БАРБОС"'
+    en: '"GARPUN"',
+    uk: '"ГАРПУН"'
   },
   'sidebar.krokDocs': {
     en: '"KROK"',
