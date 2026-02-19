@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { theme } from './theme';
 import { LandingPageShowcase } from './components/landing/LandingPageShowcase';
 import { ChakraProvider } from '@chakra-ui/react';
@@ -13,23 +13,23 @@ function App() {
     <ChakraProvider theme={theme}>
       <AuthProvider>
         <LangProvider>
-          <BrowserRouter>
+          <HashRouter>
             <Routes>
               {/* Public routes */}
               <Route path="/" element={<LandingPageShowcase />} />
-              
+
               {/* Admin routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
-              <Route 
-                path="/admin" 
+              <Route
+                path="/admin"
                 element={
                   <AuthGuard>
                     <AdminDashboard />
                   </AuthGuard>
-                } 
+                }
               />
             </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </LangProvider>
       </AuthProvider>
     </ChakraProvider>
