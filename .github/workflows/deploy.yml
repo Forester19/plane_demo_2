@@ -4,7 +4,7 @@ name: Deploy to GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,14 +32,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build
-        run: |
-          chmod +x node_modules/.bin/*
-          npm run build
+        run: npm run build
         env:
           GITHUB_PAGES: true
           # Firebase environment variables from GitHub Secrets
