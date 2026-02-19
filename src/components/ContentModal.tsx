@@ -148,12 +148,16 @@ export const ContentModal = ({
           bg="rgba(4, 13, 24, 0.98)" 
           border={{ base: 'none', md: '1px solid' }}
           borderColor="rgba(74, 144, 226, 0.3)"
+          h={{ base: '100vh', md: '100%' }}
           maxH={{ base: '100vh', md: '90vh' }}
+          minH={{ base: '100vh', md: 'auto' }}
           m={{ base: 0, md: 4 }}
           borderRadius={{ base: 0, md: 'md' }}
+          display="flex"
+          flexDirection="column"
         >
-          <ModalHeader 
-            color="yellow.400" 
+          <ModalHeader
+            color="yellow.400"
             fontFamily="mono"
             fontSize={headerFontSize}
             borderBottom="1px solid"
@@ -163,31 +167,42 @@ export const ContentModal = ({
           >
             {displayName}
           </ModalHeader>
-          <ModalCloseButton 
-            color="gray.400" 
+          <ModalCloseButton
+            color="gray.400"
             size={{ base: 'md', md: 'lg' }}
             top={{ base: 2, md: 3 }}
             right={{ base: 2, md: 3 }}
           />
-          
-          <ModalBody pb={6} px={{ base: 2, sm: 4, md: 6 }}>
+
+          <ModalBody
+            pb={{ base: 0, md: 6 }}
+            px={{ base: 2, sm: 4, md: 6 }}
+            flex={1}
+            display="flex"
+            flexDirection="column"
+            overflow="hidden"
+          >
             {loading ? (
-              <Center py={20}>
+              <Center py={20} flex={1}>
                 <Spinner size="xl" color="yellow.400" />
               </Center>
             ) : error ? (
-              <Center py={20}>
+              <Center py={20} flex={1}>
                 <Text color="red.400">{error}</Text>
               </Center>
             ) : (
-              <Tabs 
-                index={tabIndex} 
+              <Tabs
+                index={tabIndex}
                 onChange={setTabIndex}
                 colorScheme="yellow"
                 variant="enclosed"
                 isFitted={!showTabText}
+                display="flex"
+                flexDirection="column"
+                flex={1}
+                overflow="hidden"
               >
-                <TabList 
+                <TabList
                   borderColor="rgba(74, 144, 226, 0.3)"
                   flexWrap={{ base: 'nowrap', md: 'nowrap' }}
                   overflowX={{ base: 'auto', md: 'visible' }}
@@ -196,7 +211,7 @@ export const ContentModal = ({
                     scrollbarWidth: 'none'
                   }}
                 >
-                  <Tab 
+                  <Tab
                     _selected={{ color: 'yellow.400', borderColor: 'yellow.400', borderBottomColor: 'transparent' }}
                     color="gray.400"
                     fontSize={tabFontSize}
@@ -208,7 +223,7 @@ export const ContentModal = ({
                     <Icon as={FiFileText} mr={{ base: 0, sm: 2 }} boxSize={{ base: 4, md: 5 }} />
                     {showTabText && t('menu.techDocs')}
                   </Tab>
-                  <Tab 
+                  <Tab
                     _selected={{ color: 'yellow.400', borderColor: 'yellow.400', borderBottomColor: 'transparent' }}
                     color="gray.400"
                     fontSize={tabFontSize}
@@ -220,7 +235,7 @@ export const ContentModal = ({
                     <Icon as={FiImage} mr={{ base: 0, sm: 2 }} boxSize={{ base: 4, md: 5 }} />
                     {showTabText ? `${t('menu.photos')} (${photos.length})` : photos.length}
                   </Tab>
-                  <Tab 
+                  <Tab
                     _selected={{ color: 'yellow.400', borderColor: 'yellow.400', borderBottomColor: 'transparent' }}
                     color="gray.400"
                     fontSize={tabFontSize}
@@ -234,60 +249,86 @@ export const ContentModal = ({
                   </Tab>
                 </TabList>
 
-                <TabPanels>
+                <TabPanels flex={1} overflow="auto" display="flex" flexDirection="column">
                   {/* Specifications Tab */}
-                  <TabPanel px={{ base: 0, md: 2 }}>
+                  <TabPanel
+                    px={{ base: 0, md: 2 }}
+                    flex={1}
+                    overflow="hidden"
+                    pb={{ base: 0, md: 2 }}
+                    display="flex"
+                    flexDirection="column"
+                  >
                     {specifications.length === 0 ? (
-                      <Center py={10}>
+                      <Center py={10} flex={1}>
                         <Text color="gray.500" textAlign="center">
                           {language === 'uk' ? 'Специфікації незабаром' : 'Specifications coming soon'}
                         </Text>
                       </Center>
                     ) : (
-                      <VStack spacing={4} align="stretch">
-                        {specifications.map((spec) => (
+                      <Box
+                        flex={1}
+                        display="flex"
+                        flexDirection="column"
+                        overflow="hidden"
+                      >
+                        {specifications.map((spec, index) => (
                           <Box
                             key={spec.id}
-                            p={{ base: 3, md: 4 }}
+                            flex={1}
+                            display="flex"
+                            flexDirection="column"
                             bg="rgba(74, 144, 226, 0.1)"
                             borderRadius="md"
                             border="1px solid"
                             borderColor="rgba(74, 144, 226, 0.2)"
+                            overflow="hidden"
+                            mb={index < specifications.length - 1 ? 4 : 0}
                           >
-                            <Text 
-                              fontWeight="bold" 
-                              color="yellow.400" 
-                              mb={2}
-                              fontSize={{ base: 'sm', md: 'md' }}
-                            >
-                              {language === 'uk' ? spec.titleUk : spec.title}
-                            </Text>
-                            {spec.description && (
-                              <Text 
-                                color="gray.300" 
-                                whiteSpace="pre-wrap"
-                                fontSize={{ base: 'sm', md: 'md' }}
-                              >
-                                {language === 'uk' ? spec.descriptionUk : spec.description}
-                              </Text>
+                            {(spec.title || spec.description) && (
+                              <Box p={{ base: 2, md: 3 }} flexShrink={0}>
+                                {spec.title && (
+                                  <Text
+                                    fontWeight="bold"
+                                    color="yellow.400"
+                                    fontSize={{ base: 'sm', md: 'md' }}
+                                  >
+                                    {language === 'uk' ? spec.titleUk : spec.title}
+                                  </Text>
+                                )}
+                                {spec.description && (
+                                  <Text
+                                    color="gray.300"
+                                    whiteSpace="pre-wrap"
+                                    fontSize={{ base: 'xs', md: 'sm' }}
+                                    mt={1}
+                                  >
+                                    {language === 'uk' ? spec.descriptionUk : spec.description}
+                                  </Text>
+                                )}
+                              </Box>
                             )}
                             {spec.fileUrl && (
-                              <AspectRatio ratio={16/9} mt={4}>
+                              <Box flex={1} minH="0">
                                 <iframe
                                   src={spec.fileUrl}
                                   title={spec.title}
-                                  style={{ border: 'none' }}
+                                  style={{
+                                    border: 'none',
+                                    width: '100%',
+                                    height: '100%'
+                                  }}
                                 />
-                              </AspectRatio>
+                              </Box>
                             )}
                           </Box>
                         ))}
-                      </VStack>
+                      </Box>
                     )}
                   </TabPanel>
 
                   {/* Photos Tab */}
-                  <TabPanel px={{ base: 0, md: 2 }}>
+                  <TabPanel px={{ base: 0, md: 2 }} flex={1} overflow="auto" pb={{ base: 4, md: 2 }}>
                     {photos.length === 0 ? (
                       <Center py={10}>
                         <Text color="gray.500" textAlign="center">
@@ -295,8 +336,8 @@ export const ContentModal = ({
                         </Text>
                       </Center>
                     ) : (
-                      <SimpleGrid 
-                        columns={{ base: 2, sm: 2, md: 3, lg: 4 }} 
+                      <SimpleGrid
+                        columns={{ base: 2, sm: 2, md: 3, lg: 4 }}
                         spacing={{ base: 2, sm: 3, md: 4 }}
                       >
                         {photos.map((photo, index) => (
@@ -326,8 +367,8 @@ export const ContentModal = ({
                               />
                             </AspectRatio>
                             {photo.title && (
-                              <Text 
-                                p={{ base: 1.5, md: 2 }} 
+                              <Text
+                                p={{ base: 1.5, md: 2 }}
                                 fontSize={{ base: 'xs', md: 'sm' }}
                                 color="gray.400"
                                 noOfLines={1}
@@ -342,7 +383,7 @@ export const ContentModal = ({
                   </TabPanel>
 
                   {/* Videos Tab */}
-                  <TabPanel px={{ base: 0, md: 2 }}>
+                  <TabPanel px={{ base: 0, md: 2 }} flex={1} overflow="auto" pb={{ base: 4, md: 2 }}>
                     {videos.length === 0 ? (
                       <Center py={10}>
                         <Text color="gray.500" textAlign="center">
