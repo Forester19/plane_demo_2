@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // For GitHub Pages: set to '/your-repo-name/' or '/' for custom domain
-  base: process.env.GITHUB_PAGES ? '/plane_demo_2/' : '/',
+  base: '/',
   build: {
     sourcemap: true,
     minify: 'terser',
