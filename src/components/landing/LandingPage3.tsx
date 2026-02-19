@@ -1,10 +1,12 @@
-import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react';
+import { useState } from 'react';
+import { Box, Container, Flex, VStack, Image, Heading, Text, Button, Link, HStack, Badge, SimpleGrid, Divider, Icon, useBreakpointValue, IconButton, Menu, MenuButton, MenuList, MenuItem, useDisclosure } from '@chakra-ui/react';
 import { keyframes } from '@chakra-ui/system';
 import {FiFileText, FiTarget, FiWifi, FiEye, FiFastForward, FiChevronDown, FiImage, FiVideo, FiCompass, FiCrosshair, FiNavigation2} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import airblockLogo from '../../assets/airblock-logo.svg';
 import { useLang } from './LangContext';
 import { LanguageSwitch } from './LanguageSwitch';
+import { ContentModal } from '../ContentModal';
 
 // Import background image
 import picture4 from '../../assets/Picture_4.jpg';
@@ -38,9 +40,31 @@ const gradientMove = keyframes`
 
 const gradientAnimation = `${gradientMove} 8s linear infinite`;
 
+// Drone model configurations
+const droneModels = {
+  krok: { id: 'krok', name: 'KROK', nameUk: 'КРОК', slug: 'krok' },
+  kortyk: { id: 'kortyk', name: 'KORTYK', nameUk: 'КОРТИК', slug: 'kortyk' },
+  garpun: { id: 'garpun', name: 'GARPUN', nameUk: 'ГАРПУН', slug: 'garpun' },
+  kibec: { id: 'kibec', name: 'KIBEC', nameUk: 'КІБЕЦЬ', slug: 'kibec' }
+};
+
+type TabType = 'specifications' | 'photos' | 'videos';
+
 export const LandingPage3 = () => {
   const logoSize = useBreakpointValue({ base: '180px', md: '200px' });
   const { t } = useLang();
+  
+  // Modal state
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedDrone, setSelectedDrone] = useState<typeof droneModels.krok | null>(null);
+  const [initialTab, setInitialTab] = useState<TabType>('photos');
+
+  // Function to open modal for a specific drone and tab
+  const openContentModal = (droneKey: keyof typeof droneModels, tab: TabType) => {
+    setSelectedDrone(droneModels[droneKey]);
+    setInitialTab(tab);
+    onOpen();
+  };
   
   return (
     <Box 
@@ -531,29 +555,26 @@ export const LandingPage3 = () => {
                 </MenuButton>
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
-                    as={Link} 
-                    href="https://docs.google.com/document/d/specifications"
                     icon={<FiFileText />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('krok', 'specifications')}
                   >
                     {t('menu.techDocs')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#photos"
                     icon={<FiImage />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('krok', 'photos')}
                   >
                     {t('menu.photos')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#videos"
                     icon={<FiVideo />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('krok', 'videos')}
                   >
                     {t('menu.videos')}
                   </MenuItem>
@@ -581,29 +602,26 @@ export const LandingPage3 = () => {
                 </MenuButton>
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
-                    as={Link} 
-                    href="https://drive.google.com/drive/folders/1C9bEX-xZiTUBX7QimKz8QrbXE5kNNmvn?usp=drive_link"
                     icon={<FiFileText />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kortyk', 'specifications')}
                   >
                     {t('menu.techDocs')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="https://drive.google.com/drive/folders/1SFArsn5FP83wmTG-FNUgeRGNQPyYvj_x?usp=drive_link"
                     icon={<FiImage />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kortyk', 'photos')}
                   >
                     {t('menu.photos')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="https://drive.google.com/drive/folders/1Ix1gmlJOyextYtYFVMojbrrlj2j_FhtC?usp=drive_link"
                     icon={<FiVideo />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kortyk', 'videos')}
                   >
                     {t('menu.videos')}
                   </MenuItem>
@@ -631,29 +649,26 @@ export const LandingPage3 = () => {
                 </MenuButton>
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
-                    as={Link} 
-                    href="https://docs.google.com/document/d/specifications"
                     icon={<FiFileText />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('garpun', 'specifications')}
                   >
                     {t('menu.techDocs')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#photos"
                     icon={<FiImage />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('garpun', 'photos')}
                   >
                     {t('menu.photos')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#videos"
                     icon={<FiVideo />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('garpun', 'videos')}
                   >
                     {t('menu.videos')}
                   </MenuItem>
@@ -681,29 +696,26 @@ export const LandingPage3 = () => {
                 </MenuButton>
                 <MenuList bg="rgba(4, 13, 24, 0.9)" borderColor="rgba(74, 144, 226, 0.3)">
                   <MenuItem 
-                    as={Link} 
-                    href="https://docs.google.com/document/d/specifications"
                     icon={<FiFileText />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kibec', 'specifications')}
                   >
                     {t('menu.techDocs')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#photos"
                     icon={<FiImage />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kibec', 'photos')}
                   >
                     {t('menu.photos')}
                   </MenuItem>
                   <MenuItem 
-                    as={Link} 
-                    href="#videos"
                     icon={<FiVideo />}
                     bg="rgba(4, 13, 24, 0.9)"
                     _hover={{ bg: "rgba(74, 144, 226, 0.2)" }}
+                    onClick={() => openContentModal('kibec', 'videos')}
                   >
                     {t('menu.videos')}
                   </MenuItem>
@@ -779,6 +791,18 @@ export const LandingPage3 = () => {
         </Container>
       </Box>
       </Container>
+
+      {/* Content Modal */}
+      {selectedDrone && (
+        <ContentModal
+          isOpen={isOpen}
+          onClose={onClose}
+          droneId={selectedDrone.id}
+          droneName={selectedDrone.name}
+          droneNameUk={selectedDrone.nameUk}
+          initialTab={initialTab}
+        />
+      )}
     </Box>
   );
 }; 
