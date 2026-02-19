@@ -22,9 +22,11 @@ import {
   VStack,
   Icon,
   useBreakpointValue,
-  Flex
+  Flex,
+  Button,
+  Link
 } from '@chakra-ui/react';
-import { FiChevronLeft, FiChevronRight, FiX, FiFileText, FiImage, FiVideo } from 'react-icons/fi';
+import { FiChevronLeft, FiChevronRight, FiX, FiFileText, FiImage, FiVideo, FiExternalLink, FiDownload } from 'react-icons/fi';
 import { useDroneContent } from '../hooks/useFirebaseContent';
 import type { ContentItem } from '../hooks/useFirebaseContent';
 import { useLang } from './landing/LangContext';
@@ -57,6 +59,7 @@ export const ContentModal = ({
   const tabFontSize = useBreakpointValue({ base: 'xs', sm: 'sm', md: 'md' });
   const headerFontSize = useBreakpointValue({ base: 'md', md: 'xl' });
   const lightboxButtonSize = useBreakpointValue({ base: 'md', md: 'lg' });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Filter content by type
   const photos = content.filter(item => item.type === 'photo');
@@ -123,7 +126,7 @@ export const ContentModal = ({
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-    
+
     if (isLeftSwipe && currentImageIndex < photos.length - 1) {
       nextImage();
     }
@@ -136,16 +139,16 @@ export const ContentModal = ({
 
   return (
     <>
-      <Modal 
-        isOpen={isOpen} 
-        onClose={onClose} 
-        size={modalSize} 
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={modalSize}
         scrollBehavior="inside"
         motionPreset="slideInBottom"
       >
         <ModalOverlay bg="rgba(0, 0, 0, 0.85)" backdropFilter="blur(10px)" />
-        <ModalContent 
-          bg="rgba(4, 13, 24, 0.98)" 
+        <ModalContent
+          bg="rgba(4, 13, 24, 0.98)"
           border={{ base: 'none', md: '1px solid' }}
           borderColor="rgba(74, 144, 226, 0.3)"
           h={{ base: '100vh', md: '100%' }}
@@ -309,16 +312,56 @@ export const ContentModal = ({
                               </Box>
                             )}
                             {spec.fileUrl && (
-                              <Box flex={1} minH="0">
-                                <iframe
-                                  src={spec.fileUrl}
-                                  title={spec.title}
-                                  style={{
-                                    border: 'none',
-                                    width: '100%',
-                                    height: '100%'
-                                  }}
-                                />
+                              <Box flex={1} minH="0" display="flex" flexDirection="column">
+                                {isMobile ? (
+                                  /* Mobile: Show buttons to view/download PDF */
+                                  <Center flex={1} flexDirection="column" gap={4} p={4}>
+                                    <Icon as={FiFileText} boxSize={16} color="yellow.400" opacity={0.5} />
+                                    <Text color="gray.400" textAlign="center" fontSize="sm">
+                                      {language === 'uk'
+                                        ? 'PDF документ недоступний для перегляду на мобільному'
+                                        : 'PDF preview not available on mobile'}
+                                    </Text>
+                                    <VStack spacing={3} w="full" maxW="280px">
+                                      <Button
+                                        as={Link}
+                                        href={`https://docs.google.com/viewer?url=${encodeURIComponent(spec.fileUrl)}&embedded=true`}
+                                        isExternal
+                                        colorScheme="yellow"
+                                        size="lg"
+                                        w="full"
+                                        leftIcon={<FiExternalLink />}
+                                      >
+                                        {language === 'uk' ? 'Відкрити PDF' : 'View PDF'}
+                                      </Button>
+                                      <Button
+                                        as={Link}
+                                        href={spec.fileUrl}
+                                        isExternal
+                                        download
+                                        variant="outline"
+                                        colorScheme="yellow"
+                                        size="md"
+                                        w="full"
+                                        leftIcon={<FiDownload />}
+                                      >
+                                        {language === 'uk' ? 'Завантажити' : 'Download'}
+                                      </Button>
+                                    </VStack>
+                                  </Center>
+                                ) : (
+                                  /* Desktop: Show embedded iframe */
+                                  <iframe
+                                    src={spec.fileUrl}
+                                    title={spec.title}
+                                    style={{
+                                      border: 'none',
+                                      width: '100%',
+                                      height: '100%',
+                                      flex: 1
+                                    }}
+                                  />
+                                )}
                               </Box>
                             )}
                           </Box>
@@ -411,17 +454,17 @@ export const ContentModal = ({
                             </AspectRatio>
                             {video.title && (
                               <Box p={{ base: 2, md: 3 }} bg="rgba(74, 144, 226, 0.1)">
-                                <Text 
-                                  fontWeight="bold" 
+                                <Text
+                                  fontWeight="bold"
                                   color="gray.200"
                                   fontSize={{ base: 'sm', md: 'md' }}
                                 >
                                   {language === 'uk' ? video.titleUk : video.title}
                                 </Text>
                                 {video.description && (
-                                  <Text 
-                                    fontSize={{ base: 'xs', md: 'sm' }} 
-                                    color="gray.400" 
+                                  <Text
+                                    fontSize={{ base: 'xs', md: 'sm' }}
+                                    color="gray.400"
                                     mt={1}
                                   >
                                     {language === 'uk' ? video.descriptionUk : video.description}
@@ -472,7 +515,7 @@ export const ContentModal = ({
             borderRadius="full"
             zIndex={10}
           />
-          
+
           {/* Previous button - hidden on mobile (use swipe) */}
           <IconButton
             aria-label="Previous"
@@ -489,7 +532,7 @@ export const ContentModal = ({
             opacity={{ base: 0.6, md: 1 }}
             display={{ base: 'none', sm: 'flex' }}
           />
-          
+
           {/* Image */}
           <Image
             src={selectedImage.fileUrl}
@@ -500,7 +543,7 @@ export const ContentModal = ({
             onClick={(e) => e.stopPropagation()}
             px={{ base: 2, md: 0 }}
           />
-          
+
           {/* Next button - hidden on mobile (use swipe) */}
           <IconButton
             aria-label="Next"
@@ -517,7 +560,7 @@ export const ContentModal = ({
             opacity={{ base: 0.6, md: 1 }}
             display={{ base: 'none', sm: 'flex' }}
           />
-          
+
           {/* Image counter and swipe hint */}
           <Flex
             position="absolute"
@@ -531,9 +574,9 @@ export const ContentModal = ({
             <Text color="white" fontSize={{ base: 'sm', md: 'md' }} fontWeight="medium">
               {currentImageIndex + 1} / {photos.length}
             </Text>
-            <Text 
-              color="gray.500" 
-              fontSize="xs" 
+            <Text
+              color="gray.500"
+              fontSize="xs"
               display={{ base: 'block', sm: 'none' }}
             >
               {language === 'uk' ? 'Свайп для навігації' : 'Swipe to navigate'}
